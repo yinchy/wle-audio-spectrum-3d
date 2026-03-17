@@ -111,9 +111,14 @@ export class AudioInputUI extends Component {
         micBtn.addEventListener('click', async () => {
             const vis = this._getVisualiser();
             if (!vis) return;
-            stopBtn.style.display = 'inline-block';
-            fileName.textContent = 'Live microphone';
-            await vis.connectMicrophone();
+            try {
+                stopBtn.style.display = 'inline-block';
+                fileName.textContent = 'Live microphone';
+                await vis.connectMicrophone();
+            } catch (err) {
+                stopBtn.style.display = 'none';
+                fileName.textContent = `Mic error: ${(err as any)?.message ?? String(err)}`;
+            }
         });
 
         fileInput.addEventListener('change', () => {

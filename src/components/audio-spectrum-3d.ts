@@ -3,10 +3,6 @@ import {
     MeshComponent,
     Object3D,
     Property,
-    WonderlandEngine,
-    Mesh,
-    MeshIndexType,
-    MeshAttribute,
 } from '@wonderlandengine/api';
 
 interface ActiveSource {
@@ -50,10 +46,9 @@ export class AudioSpectrum3D extends Component {
     private _currentHeights: Float32Array = new Float32Array(0);
     private _freqData: Uint8Array<ArrayBuffer> = new Uint8Array(0);
     private _source: ActiveSource | null = null;
-    private _cubeMesh: Mesh | null = null;
+    private _barMaterials: any[] = [];
 
     async start(): Promise<void> {
-        this._cubeMesh = this._buildUnitCube();
         this._spawnBars();
     }
 
@@ -79,11 +74,11 @@ export class AudioSpectrum3D extends Component {
             pos[1] = h / 2;
             bar.setPositionLocal(pos);
 
-            if (this.barMaterial && 'diffuseColor' in this.barMaterial) {
+            if (this._barMaterials[i] && 'diffuseColor' in this._barMaterials[i]) {
                 const hue = i / this._bars.length;
                 const brightness = 0.4 + 0.6 * (this._freqData[binIndex] / 255);
                 const [r, g, b] = this._hsvToRgb(hue * 0.66, 1, brightness);
-                this.barMaterial.diffuseColor = [r, g, b, 1];
+                this._barMaterials[i].diffuseColor = [r, g, b, 1];
             }
         }
     }
@@ -132,54 +127,21 @@ export class AudioSpectrum3D extends Component {
         const startX = -totalWidth / 2 + this.barWidth / 2;
         this._currentHeights = new Float32Array(this.barCount);
 
+        const cubeMesh = this.engine.meshes.get(1);
+
         for (let i = 0; i < this.barCount; i++) {
-            const bar = (this.engine as WonderlandEngine).scene.addObject(this.object);
-            const mesh = bar.addComponent(MeshComponent)!;
-            mesh.mesh = this._cubeMesh!;
-            if (this.barMaterial) mesh.material = this.barMaterial;
+            const bar = this.engine.scene.addObject(this.object);
+            const meshComp = bar.addComponent(MeshComponent)!;
+            meshComp.mesh = cubeMesh;
+            const mat = this.barMaterial ? this.barMaterial.clone() : null;
+            if (mat) meshComp.material = mat;
+            this._barMaterials.push(mat);
 
             const x = startX + i * (this.barWidth + this.barSpacing);
             bar.setPositionLocal([x, 0.0005, 0]);
             bar.setScalingLocal([this.barWidth, 0.001, this.barWidth]);
             this._bars.push(bar);
         }
-    }
-
-    private _buildUnitCube(): Mesh {
-        const engine = this.engine as WonderlandEngine;
-
-        const positions = new Float32Array([
-            -0.5, -0.5,  0.5,
-             0.5, -0.5,  0.5,
-             0.5,  0.5,  0.5,
-            -0.5,  0.5,  0.5,
-            -0.5, -0.5, -0.5,
-             0.5, -0.5, -0.5,
-             0.5,  0.5, -0.5,
-            -0.5,  0.5, -0.5,
-        ]);
-
-        const indices = new Uint16Array([
-            0,1,2, 2,3,0,
-            1,5,6, 6,2,1,
-            5,4,7, 7,6,5,
-            4,0,3, 3,7,4,
-            3,2,6, 6,7,3,
-            4,5,1, 1,0,4,
-        ]);
-
-        const mesh = new Mesh(engine, {
-            indexData: indices,
-            indexType: MeshIndexType.UnsignedShort,
-            vertexCount: 8,
-        });
-
-        const posAttr = mesh.attribute(MeshAttribute.Position)!;
-        for (let v = 0; v < 8; v++) {
-            posAttr.set(v, [positions[v * 3], positions[v * 3 + 1], positions[v * 3 + 2]]);
-        }
-
-        return mesh;
     }
 
     private _hsvToRgb(h: number, s: number, v: number): [number, number, number] {
