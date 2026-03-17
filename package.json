@@ -1,0 +1,20 @@
+{
+  "name": "wle-audio-spectrum-3d",
+  "version": "1.0.0",
+  "description": "3D audio spectrum visualiser for Wonderland Engine",
+  "main": "js/bundle.js",
+  "scripts": {
+    "build": "tsc && npx rollup -c rollup.config.mjs",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@wonderlandengine/api": "^1.2.0",
+    "@wonderlandengine/editor-components": "^1.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "rollup": "^4.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0"
+  }
+}
