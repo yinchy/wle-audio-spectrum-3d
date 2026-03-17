@@ -10,18 +10,20 @@ A **3D real-time audio spectrum visualiser** built with the [Wonderland Engine](
 - 🌈 **Colour-mapped bars** — hue shifts from bass (red) to treble (blue) with intensity brightness
 - 🌐 **WebXR ready** — works in browser, desktop 3D and VR headsets
 - 🔄 **Smooth interpolation** — bars lerp toward target heights for fluid animation
-- 📦 **Zero extra dependencies** — only `@wonderlandengine/api` and `@wonderlandengine/editor-components`
+- 📦 **Single dependency** — only `@wonderlandengine/api` (provided by the WLE runtime)
 
 ## 📂 Project Structure
 
 ```
 wle-audio-spectrum-3d/
+├── AudioSpectrum3D.wlp    ← Wonderland Engine project file (open this in the editor)
+├── index.html             ← HTML template (populated automatically by the editor on package)
 ├── README.md
 ├── package.json
 ├── tsconfig.json
 ├── rollup.config.mjs
 ├── js/
-│   └── bundle.js          ← build output (run npm run build)
+│   └── bundle.js          ← pre-built ES module (run npm run build)
 └── src/
     ├── index.ts
     └── components/
@@ -35,7 +37,7 @@ wle-audio-spectrum-3d/
 - [Wonderland Engine Editor](https://wonderlandengine.com/downloads/) ≥ 1.2.0
 - Node.js ≥ 18
 
-### Setup
+### Quick Start
 
 ```bash
 git clone https://github.com/yinchy/wle-audio-spectrum-3d.git
@@ -44,15 +46,23 @@ npm install
 npm run build
 ```
 
-Then open your `.wlp` project file in the Wonderland Engine Editor and press **Package & Run** (F6).
+1. Open **`AudioSpectrum3D.wlp`** in the Wonderland Engine Editor.
+2. Press **Package & Run** (`F6`) to build and launch the project in your browser.
+3. Use the on-screen UI to grant microphone access or load an audio file.
 
-### Scene Setup in the Editor
+### Scene Overview
 
-1. Create a **root empty object** and attach the `audio-spectrum-3d` component.
-2. Create another object and attach `audio-input-ui`, pointing its `visualiserObject` property to the object above.
-3. Set a **Phong or Flat material** on the `barMaterial` property of `audio-spectrum-3d`.
-4. Add a directional light and a perspective camera.
-5. (Optional) Enable **WebXR** in Project Settings for VR support.
+The project file (`AudioSpectrum3D.wlp`) contains a ready-to-run scene with:
+
+| Object | Component | Purpose |
+|---|---|---|
+| `Player` | `wasd-controls` | First-person camera rig |
+| `NonVrCamera` | `view`, `mouse-look` | Desktop camera |
+| `EyeLeft` / `EyeRight` | `view`, `input` | VR stereo cameras |
+| `Light` | `light` | Scene lighting |
+| `Floor` | `mesh` | Ground plane |
+| `SpectrumVisualizer` | `audio-spectrum-3d` | Spawns and animates the 3D bars |
+| `AudioUI` | `audio-input-ui` | Mic / file-picker HTML overlay UI |
 
 ## 🎛️ Component Properties
 

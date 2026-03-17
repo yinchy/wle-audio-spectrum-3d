@@ -3,6 +3,7 @@ import typescript from '@rollup/plugin-typescript';
 
 export default {
     input: 'src/index.ts',
+    external: ['@wonderlandengine/api'],
     output: {
         file: 'js/bundle.js',
         format: 'es',
