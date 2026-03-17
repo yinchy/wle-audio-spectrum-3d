@@ -1,0 +1,461 @@
+{
+    "objects": {
+        "10": {
+            "name": "Player",
+            "components": [
+                {
+                    "type": "wasd-controls",
+                    "wasd-controls": {
+                        "headObject": "11"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                1.6,
+                5.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "11": {
+            "name": "NonVrCamera",
+            "parent": "10",
+            "components": [
+                {
+                    "type": "view"
+                },
+                {
+                    "type": "mouse-look"
+                }
+            ]
+        },
+        "12": {
+            "name": "EyeLeft",
+            "parent": "10",
+            "components": [
+                {
+                    "type": "view"
+                },
+                {
+                    "type": "input",
+                    "input": {
+                        "type": "eye left"
+                    }
+                }
+            ]
+        },
+        "13": {
+            "name": "EyeRight",
+            "parent": "10",
+            "components": [
+                {
+                    "type": "view"
+                },
+                {
+                    "type": "input",
+                    "input": {
+                        "type": "eye right"
+                    }
+                }
+            ]
+        },
+        "14": {
+            "name": "Light",
+            "components": [
+                {
+                    "type": "light",
+                    "light": {
+                        "intensity": 3.0
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                5.0,
+                2.0
+            ],
+            "rotation": [
+                -0.3826834,
+                0.0,
+                0.0,
+                0.9238795
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "15": {
+            "name": "Floor",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "2",
+                        "material": "31"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                -0.7072496,
+                0.0,
+                0.0,
+                0.7069638
+            ],
+            "scaling": [
+                8.0,
+                8.0,
+                8.0
+            ]
+        },
+        "20": {
+            "name": "SpectrumVisualizer",
+            "components": [
+                {
+                    "type": "audio-spectrum-3d",
+                    "audio-spectrum-3d": {
+                        "barCount": 64,
+                        "barWidth": 0.08,
+                        "barSpacing": 0.04,
+                        "maxBarHeight": 4.0,
+                        "lerpSpeed": 12.0,
+                        "barMaterial": "30",
+                        "fftSize": 1024
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "21": {
+            "name": "AudioUI",
+            "components": [
+                {
+                    "type": "audio-input-ui",
+                    "audio-input-ui": {
+                        "visualiserObject": "20"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    },
+    "meshes": {
+        "1": {
+            "link": {
+                "name": "PrimitiveCube",
+                "file": "default"
+            }
+        },
+        "2": {
+            "link": {
+                "name": "PrimitivePlane",
+                "file": "default"
+            }
+        },
+        "3": {
+            "link": {
+                "name": "PrimitiveSphere",
+                "file": "default"
+            }
+        }
+    },
+    "textures": {
+        "4": {
+            "link": {
+                "name": "DefaultTexture",
+                "file": "default"
+            },
+            "name": "DefaultFont"
+        }
+    },
+    "images": {
+        "f0": {
+            "link": {
+                "name": "DefaultImage",
+                "file": "default"
+            }
+        }
+    },
+    "materials": {
+        "DefaultFontMaterial": {
+            "link": {
+                "name": "DefaultFontMaterial",
+                "file": "default"
+            },
+            "Text": {
+                "font": "40"
+            }
+        },
+        "30": {
+            "name": "BarMaterial",
+            "Phong": {
+                "diffuseColor": [
+                    0.0,
+                    1.0,
+                    0.5,
+                    1.0
+                ],
+                "specularColor": [
+                    0.1,
+                    0.1,
+                    0.1,
+                    1.0
+                ],
+                "shininess": 5,
+                "ambientColor": [
+                    0.02,
+                    0.02,
+                    0.02,
+                    1.0
+                ],
+                "emissiveColor": [
+                    0.0,
+                    0.3,
+                    0.15,
+                    1.0
+                ]
+            },
+            "pipeline": "52"
+        },
+        "31": {
+            "name": "FloorMaterial",
+            "Phong": {
+                "diffuseColor": [
+                    0.15,
+                    0.15,
+                    0.15,
+                    1.0
+                ],
+                "specularColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "shininess": 10,
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
+            },
+            "pipeline": "52"
+        }
+    },
+    "shaders": {
+        "34": {
+            "link": {
+                "name": "Background.frag",
+                "file": "default"
+            }
+        },
+        "35": {
+            "link": {
+                "name": "Depth.frag",
+                "file": "default"
+            }
+        },
+        "37": {
+            "link": {
+                "name": "DistanceFieldVector.frag",
+                "file": "default"
+            }
+        },
+        "39": {
+            "link": {
+                "name": "Dynamic.vert",
+                "file": "default"
+            }
+        },
+        "42": {
+            "link": {
+                "name": "Flat.frag",
+                "file": "default"
+            }
+        },
+        "43": {
+            "link": {
+                "name": "FullScreenTriangle.vert",
+                "file": "default"
+            }
+        },
+        "44": {
+            "link": {
+                "name": "MeshVisualizer.frag",
+                "file": "default"
+            }
+        },
+        "46": {
+            "link": {
+                "name": "Phong.frag",
+                "file": "default"
+            }
+        },
+        "49": {
+            "link": {
+                "name": "Physical.frag",
+                "file": "default"
+            }
+        },
+        "53": {
+            "link": {
+                "name": "Sky.frag",
+                "file": "default"
+            }
+        },
+        "54": {
+            "link": {
+                "name": "Text.frag",
+                "file": "default"
+            }
+        },
+        "56": {
+            "link": {
+                "name": "Text.vert",
+                "file": "default"
+            }
+        }
+    },
+    "settings": {
+        "project": {
+            "name": "AudioSpectrum3D",
+            "version": [
+                1,
+                0,
+                4
+            ]
+        },
+        "vr": {
+            "leftEyeObject": "12",
+            "rightEyeObject": "13"
+        },
+        "scripting": {
+            "sourcePaths": [
+                "src/components/audio-spectrum-3d.ts",
+                "src/components/audio-input-ui.ts"
+            ],
+            "libraryPaths": [
+                "/js/lib/"
+            ],
+            "bundlingType": "esbuild"
+        }
+    },
+    "animations": {},
+    "skins": {},
+    "pipelines": {
+        "41": {
+            "link": {
+                "name": "Depth",
+                "file": "default"
+            }
+        },
+        "47": {
+            "link": {
+                "name": "DistanceFieldVector",
+                "file": "default"
+            }
+        },
+        "50": {
+            "link": {
+                "name": "MeshVisualizer",
+                "file": "default"
+            }
+        },
+        "51": {
+            "link": {
+                "name": "Flat Opaque",
+                "file": "default"
+            }
+        },
+        "52": {
+            "link": {
+                "name": "Phong Opaque",
+                "file": "default"
+            },
+            "features": {
+                "DEPRECATED_LIGHT_ATTENUATION": true,
+                "WITH_EMISSIVE": true
+            }
+        },
+        "55": {
+            "link": {
+                "name": "Text",
+                "file": "default"
+            }
+        },
+        "59": {
+            "link": {
+                "name": "Physical Opaque",
+                "file": "default"
+            }
+        },
+        "60": {
+            "link": {
+                "name": "Sky",
+                "file": "default"
+            }
+        }
+    },
+    "fonts": {
+        "40": {
+            "link": {
+                "name": "DejaVuSans.ttf",
+                "file": "default"
+            }
+        }
+    },
+    "languages": {}
+}
