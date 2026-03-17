@@ -7,14 +7,11 @@ import {AudioSpectrum3D} from './audio-spectrum-3d.js';
  * Injects a minimal HTML overlay into the page that lets the user:
  *   - Grant microphone access and start live visualisation
  *   - Pick a local audio file (MP3, WAV, OGG, FLAC) for playback
- *
- * It bridges the browser DOM to the AudioSpectrum3D Wonderland component.
  */
 export class AudioInputUI extends Component {
     static TypeName = 'audio-input-ui';
 
     static Properties = {
-        /** The scene object that carries the AudioSpectrum3D component */
         visualiserObject: Property.object(),
     };
 
@@ -46,8 +43,7 @@ export class AudioInputUI extends Component {
                 z-index: 9999;
                 font-family: system-ui, sans-serif;
             }
-            #wle-audio-ui button,
-            #wle-audio-ui label {
+            #wle-audio-ui button, #wle-audio-ui label {
                 padding: 10px 20px;
                 border-radius: 8px;
                 border: none;
@@ -57,13 +53,13 @@ export class AudioInputUI extends Component {
                 color: #fff;
                 transition: background 0.2s;
             }
-            #wle-audio-mic-btn   { background: #e74c3c; }
-            #wle-audio-mic-btn:hover   { background: #c0392b; }
+            #wle-audio-mic-btn  { background: #e74c3c; }
+            #wle-audio-mic-btn:hover  { background: #c0392b; }
             #wle-audio-file-label { background: #2980b9; }
             #wle-audio-file-label:hover { background: #1a6a9a; }
-            #wle-audio-stop-btn  { background: #555; display: none; }
-            #wle-audio-stop-btn:hover  { background: #333; }
-            #wle-audio-filename  {
+            #wle-audio-stop-btn { background: #555; display: none; }
+            #wle-audio-stop-btn:hover { background: #333; }
+            #wle-audio-filename {
                 color: #fff;
                 font-size: 13px;
                 text-shadow: 0 1px 3px rgba(0,0,0,0.8);
@@ -97,7 +93,7 @@ export class AudioInputUI extends Component {
         const fileLabel = document.createElement('label');
         fileLabel.id = 'wle-audio-file-label';
         fileLabel.htmlFor = 'wle-audio-file-input';
-        fileLabel.textContent = '🎵 Load MP3';
+        fileLabel.textContent = '🎵 Load Audio';
 
         const stopBtn = document.createElement('button');
         stopBtn.id = 'wle-audio-stop-btn';
